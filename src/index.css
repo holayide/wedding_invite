@@ -1,0 +1,172 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: hsl(40 33% 97%);
+  --foreground: hsl(20 10% 15%);
+  --card: hsl(40 40% 99%);
+  --card-foreground: hsl(20 10% 15%);
+  --popover: hsl(40 40% 99%);
+  --popover-foreground: hsl(20 10% 15%);
+  --primary: hsl(38 60% 52%);
+  --primary-foreground: hsl(40 33% 99%);
+  --secondary: hsl(350 30% 90) %;
+  --secondary-foreground: hsl(350 30% 30) %;
+  --muted: hsl(40 20% 93%);
+  --muted-foreground: hsl(20 8% 50%);
+  --accent: hsl(350 25% 93%);
+  --accent-foreground: hsl(350 30% 30%);
+  --destructive: hsl(0 72% 51%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(38 25% 88%);
+  --input: hsl(38 25% 88%);
+  --ring: hsl(38 60% 52%);
+  --radius: 0.75rem;
+  --sidebar-background: hsl(40 30% 96%);
+  --sidebar-foreground: hsl(20 10% 25%);
+  --sidebar-primary: hsl(38 60% 52%);
+  --sidebar-primary-foreground: hsl(40 33% 99%);
+  --sidebar-accent: hsl(350 25% 93%);
+  --sidebar-accent-foreground: hsl(20 10% 15%);
+  --sidebar-border: hsl(38 25% 88%);
+  --sidebar-ring: hsl(38 60% 52%);
+
+  --gold: hsl(38 60% 52%);
+  --gold-light: hsl(40 50% 85%);
+  --blush: hsl(350 30% 90%);
+  --cream: hsl(40 33% 97%);
+  --cream-dark: hsl(40 20% 93%);
+
+  /* --font-display: "Playfair Display", serif; */
+  /* --font-body: "Lato", sans-serif; */
+}
+
+.dark {
+  --background: hsl(20 10% 10%);
+  --foreground: hsl(40 33% 95%);
+  --card: hsl(20 10% 13%);
+  --card-foreground: hsl(40 33% 95%);
+  --popover: hsl(20 10% 13%);
+  --popover-foreground: hsl(40 33% 95%);
+  --primary: hsl(38 60% 52%);
+  --primary-foreground: hsl(40 33% 99%);
+  --secondary: hsl(350 20% 20%);
+  --secondary-foreground: hsl(350 30% 85%);
+  --muted: hsl(20 10% 18%);
+  --muted-foreground: hsl(40 15% 60%);
+  --accent: hsl(350 20% 18%);
+  --accent-foreground: hsl(350 30% 85%);
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(20 10% 20%);
+  --input: hsl(20 10% 20%);
+  --ring: hsl(38 60% 52%);
+  --sidebar-background: hsl(20 10% 8%);
+  --sidebar-foreground: hsl(40 33% 90%);
+  --sidebar-primary: hsl(38 60% 52%);
+  --sidebar-primary-foreground: hsl(40 33% 99%);
+  --sidebar-accent: hsl(20 10% 15%);
+  --sidebar-accent-foreground: hsl(40 33% 90%);
+  --sidebar-border: hsl(20 10% 18%);
+  --sidebar-ring: hsl(38 60% 52%);
+}
+
+@theme inline {
+  --font-display: "Playfair Display", serif;
+  --font-body: "Lato", sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-radius: var(--radius);
+  --color-sidebar-background: var(--sidebar-background);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-blush: var(--blush);
+  --color-cream: var(--cream);
+  --color-cream-dark: var(--cream-dark);
+
+  --font-display: "Playfair Display", serif;
+  --font-body: "Lato", sans-serif;
+}
+
+@theme {
+  --container-padding: 2rem;
+  --container-2xl: 1400px;
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+  }
+}

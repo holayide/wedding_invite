@@ -1,0 +1,210 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#d4af35",
+              "background-light": "#f8f7f6",
+              "background-dark": "#201d12",
+            },
+            fontFamily: {
+              display: ["Manrope"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <title>Eternal Ties | Sign In</title>
+  </head>
+  <body
+    class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen selection:bg-primary/30"
+  >
+    <div
+      class="relative flex min-h-screen flex-col items-center justify-center p-4"
+    >
+      <!-- Decorative Background Element (Faint Floral/Pattern Watermark) -->
+      <div
+        class="absolute inset-0 pointer-events-none opacity-5 dark:opacity-10 overflow-hidden"
+      >
+        <svg
+          class="absolute top-0 right-0 w-96 h-96 -translate-y-1/4 translate-x-1/4"
+          viewbox="0 0 200 200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M44.7,-76.4C58.1,-69.2,69.2,-58.1,76.4,-44.7C83.7,-31.3,87,-15.7,85.6,-0.8C84.2,14.1,78,28.2,69.2,40.6C60.4,53,49,63.7,35.6,71.3C22.2,78.9,6.8,83.4,-8.8,82.4C-24.3,81.4,-40.1,74.9,-53.2,64.8C-66.3,54.7,-76.7,41,-82.1,25.7C-87.5,10.4,-87.9,-6.5,-83.4,-21.9C-78.9,-37.3,-69.5,-51.2,-57.1,-58.9C-44.7,-66.6,-29.3,-68.1,-15.1,-72.6C-0.8,-77.1,14.1,-84.6,44.7,-76.4Z"
+            fill="currentColor"
+            transform="translate(100 100)"
+          ></path>
+        </svg>
+        <svg
+          class="absolute bottom-0 left-0 w-96 h-96 translate-y-1/4 -translate-x-1/4 rotate-180"
+          viewbox="0 0 200 200"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M44.7,-76.4C58.1,-69.2,69.2,-58.1,76.4,-44.7C83.7,-31.3,87,-15.7,85.6,-0.8C84.2,14.1,78,28.2,69.2,40.6C60.4,53,49,63.7,35.6,71.3C22.2,78.9,6.8,83.4,-8.8,82.4C-24.3,81.4,-40.1,74.9,-53.2,64.8C-66.3,54.7,-76.7,41,-82.1,25.7C-87.5,10.4,-87.9,-6.5,-83.4,-21.9C-78.9,-37.3,-69.5,-51.2,-57.1,-58.9C-44.7,-66.6,-29.3,-68.1,-15.1,-72.6C-0.8,-77.1,14.1,-84.6,44.7,-76.4Z"
+            fill="currentColor"
+            transform="translate(100 100)"
+          ></path>
+        </svg>
+      </div>
+      <!-- Navigation Bar -->
+      <header
+        class="fixed top-0 left-0 right-0 flex items-center justify-between px-6 md:px-12 py-6 z-10"
+      >
+        <div class="flex items-center gap-2">
+          <div class="size-8 text-primary">
+            <svg
+              fill="currentColor"
+              viewbox="0 0 48 48"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z"
+                fill-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <h2
+            class="text-slate-900 dark:text-slate-100 text-xl font-bold tracking-tight"
+          >
+            Eternal Ties
+          </h2>
+        </div>
+        <button
+          class="flex items-center justify-center rounded-lg h-10 px-6 bg-primary/10 text-primary border border-primary/20 text-sm font-bold hover:bg-primary/20 transition-colors"
+        >
+          <span>Support</span>
+        </button>
+      </header>
+      <!-- Main Login Card -->
+      <div class="relative w-full max-w-[480px] z-10">
+        <!-- Elegant Gold Border Frame -->
+        <div class="absolute -inset-1 bg-primary/20 rounded-xl blur-sm"></div>
+        <div
+          class="relative bg-white dark:bg-background-dark border border-primary/30 p-8 md:p-12 rounded-xl shadow-2xl flex flex-col"
+        >
+          <div class="mb-8 text-center">
+            <div
+              class="inline-block px-3 py-1 mb-4 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest"
+            >
+              Invitation Portal
+            </div>
+            <h1
+              class="text-3xl font-black text-slate-900 dark:text-slate-100 leading-tight"
+            >
+              Welcome Back
+            </h1>
+            <p class="text-slate-500 dark:text-slate-400 mt-2">
+              Sign in to manage your wedding invitations
+            </p>
+          </div>
+          <!-- Featured Image / Placeholder -->
+          <div class="mb-8 overflow-hidden rounded-lg border border-primary/10">
+            <div
+              class="w-full h-32 bg-center bg-no-repeat bg-cover bg-primary/5 flex items-center justify-center"
+              data-alt="Elegant golden wedding table setting with flowers"
+              style="
+                background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuAP8JOI2LvRcOchb2dmMWAQ36Fr2zwG6rfB7WmRAn40Q8KPQkYOssqbmj19m08LeobikIJ5WHbn1rM2HoGsV9IYHmCilnAxOy3fZQPn-AL3FR8f2XAG0qdIYVz5VsMY8aieKwJ_APRwttzkmiVHZTPuQaxx_CRXcVVtLDyTZJ_tZQTsHkFoyLZWlMVuMjKVd-XyUS9YzhNPUMhd1m8mUhuiKyUZqo0WLv1BKKBRoTS8uyVQeY3xlzwNcg5tGX0tcFIhaV4xUQJLKg&quot;);
+              "
+            ></div>
+          </div>
+          <form class="space-y-5">
+            <!-- Email Field -->
+            <div class="flex flex-col gap-2">
+              <label
+                class="text-slate-700 dark:text-slate-300 text-sm font-semibold uppercase tracking-wider"
+                >Email Address</label
+              >
+              <input
+                class="form-input block w-full rounded-lg border-primary/20 bg-background-light dark:bg-slate-800/50 text-slate-900 dark:text-slate-100 focus:border-primary focus:ring-primary h-12 px-4 text-base transition-all placeholder:text-slate-400"
+                placeholder="your@email.com"
+                required=""
+                type="email"
+              />
+            </div>
+            <!-- Password Field -->
+            <div class="flex flex-col gap-2">
+              <div class="flex justify-between items-center">
+                <label
+                  class="text-slate-700 dark:text-slate-300 text-sm font-semibold uppercase tracking-wider"
+                  >Password</label
+                >
+                <a
+                  class="text-primary text-sm font-medium hover:underline"
+                  href="#"
+                  >Forgot Password?</a
+                >
+              </div>
+              <div class="relative flex items-center">
+                <input
+                  class="form-input block w-full rounded-lg border-primary/20 bg-background-light dark:bg-slate-800/50 text-slate-900 dark:text-slate-100 focus:border-primary focus:ring-primary h-12 px-4 pr-12 text-base transition-all placeholder:text-slate-400"
+                  placeholder="••••••••"
+                  required=""
+                  type="password"
+                />
+                <div
+                  class="absolute right-4 text-primary/60 cursor-pointer hover:text-primary"
+                >
+                  <span class="material-symbols-outlined text-xl"
+                    >visibility</span
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- Sign In Button -->
+            <button
+              class="w-full flex items-center justify-center rounded-lg h-14 bg-primary text-background-dark text-lg font-bold shadow-lg shadow-primary/20 hover:scale-[1.01] active:scale-[0.98] transition-all mt-4"
+              type="submit"
+            >
+              Sign In to Your Event
+            </button>
+          </form>
+          <!-- Footer Links -->
+          <div class="mt-8 pt-6 border-t border-primary/10 text-center">
+            <p class="text-slate-500 dark:text-slate-400 text-sm">
+              Don't have an account yet?
+              <a class="text-primary font-bold hover:underline" href="#"
+                >Request Access</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Secondary Decoration Footer -->
+      <footer
+        class="mt-12 text-center text-slate-400 dark:text-slate-500 text-xs font-medium uppercase tracking-[0.2em] z-10"
+      >
+        © 2024 Eternal Ties Wedding Management
+      </footer>
+    </div>
+  </body>
+</html>
