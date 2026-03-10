@@ -5,6 +5,9 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Manrope:wght@200..800&display=swap");
+
 :root {
   --background: hsl(40 33% 97%);
   --foreground: hsl(20 10% 15%);
@@ -14,8 +17,8 @@
   --popover-foreground: hsl(20 10% 15%);
   --primary: hsl(38 60% 52%);
   --primary-foreground: hsl(40 33% 99%);
-  --secondary: hsl(350 30% 90) %;
-  --secondary-foreground: hsl(350 30% 30) %;
+  --secondary: hsl(350 30% 90%);
+  --secondary-foreground: hsl(350 30% 30%);
   --muted: hsl(40 20% 93%);
   --muted-foreground: hsl(20 8% 50%);
   --accent: hsl(350 25% 93%);
@@ -113,7 +116,8 @@
   --color-cream: var(--cream);
   --color-cream-dark: var(--cream-dark);
 
-  --font-display: "Playfair Display", serif;
+  /* --font-display: "Playfair Display", serif; */
+  --font-display: "Manrope", sans-serif;
   --font-body: "Lato", sans-serif;
 }
 

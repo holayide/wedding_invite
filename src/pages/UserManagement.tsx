@@ -67,10 +67,12 @@ export default function UserManagement() {
       <div className="space-y-6 animate-fade-in">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-display font-semibold">
+            <h1 className="text-xl sm:text-3xl font-display font-semibold">
               User Management
             </h1>
-            <p className="text-muted-foreground mt-1">Manage admin accounts</p>
+            <p className="text-sm sm:text-base text-muted-foreground mt-1">
+              Manage admin accounts
+            </p>
           </div>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>

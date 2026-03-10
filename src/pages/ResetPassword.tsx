@@ -34,8 +34,8 @@ export default function ResetPassword() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md animate-fade-in border-primary/20">
+    <div className="pt-10 sm:pt-0 sm:px-4 sm:pb-4 min-h-screen flex sm:items-center justify-center bg-background p-4">
+      <Card className="w-full max-w-md animate-fade-in border-transparent sm:border-primary/20 ring-0 sm:ring-1 bg-transparent sm:bg-card">
         <CardHeader className="text-center space-y-3">
           <div className="mx-auto flex items-center justify-center w-12 h-12 rounded-full bg-primary/10">
             <Heart className="h-6 w-6 text-primary" />

@@ -16,12 +16,13 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         <AppSidebar />
         <div className="flex-1 flex flex-col">
           <header className="h-14 flex items-center border-b px-4">
-            <SidebarTrigger className="mr-4" />
+            <SidebarTrigger className="pr-4" />
             <span className="font-display text-sm text-muted-foreground tracking-wide">
               Wedding Invitation Management
             </span>
           </header>
-          <main className="flex-1 p-6">{children}</main>
+
+          <main className="flex-1 p-6 overfull-hidden">{children}</main>
         </div>
       </div>
     </SidebarProvider>

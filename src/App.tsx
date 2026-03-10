@@ -1,26 +1,24 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-// import { Toaster } from "@/components/ui/toaster";
 
+import InviteManagement from "./pages/InviteManagement";
 import OtpVerification from "./pages/OtpVerification";
 import UserManagement from "./pages/UserManagement";
 import ForgotPassword from "./pages/ForgetPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
+import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import InviteManagement from "./pages/InviteManagement";
+import { Toaster } from "sonner";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      {/* <Toaster /> */}
-      <Sonner />
+      <Toaster position="top-right" richColors closeButton />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />

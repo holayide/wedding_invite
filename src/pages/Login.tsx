@@ -2,6 +2,12 @@ import { useNavigate, Link } from "react-router-dom";
 import { Heart } from "lucide-react";
 import { useState } from "react";
 
+import bgImage from "@/assets/wedding_table.jpg";
+import { useAuthStore } from "@/store/authStore";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 import {
   Card,
   CardContent,
@@ -9,11 +15,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useAuthStore } from "@/store/authStore";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -32,9 +33,9 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md animate-fade-in border-primary/20">
-        <CardHeader className="text-center space-y-3">
+    <div className="pt-10 sm:pt-0 sm:px-4 sm:pb-4 min-h-screen flex sm:items-center justify-center bg-background">
+      <Card className="w-full p-8 md:p-12 max-w-md animate-fade-in border-transparent sm:border-primary/20 ring-0 sm:ring-1 bg-transparent sm:bg-card">
+        <CardHeader className="text-center space-y-3 px-0">
           <div className="mx-auto flex items-center justify-center w-12 h-12 rounded-full bg-primary/10">
             <Heart className="h-6 w-6 text-primary" />
           </div>
@@ -44,7 +45,14 @@ export default function Login() {
           </CardDescription>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="px-0">
+          <div className="mb-6 overflow-hidden rounded-lg border border-primary/10">
+            <div
+              className="w-full h-32 bg-center bg-no-repeat bg-cover bg-primary/5 flex items-center justify-center"
+              style={{ backgroundImage: `url(${bgImage})` }}
+            />
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
