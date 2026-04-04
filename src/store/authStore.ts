@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export type UserRole = "super_admin" | "admin";
 
@@ -10,41 +11,53 @@ export interface User {
 }
 
 interface AuthState {
-  currentUser: User | null;
+  user: User | null;
+  token: string | null;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => boolean;
-  logout: () => void;
+
   resetEmail: string;
+  resetOtp: string;
+  resetUserId: string;
+
+  setAuth: (user: User, token: string) => void;
+  logout: () => void;
+
   setResetEmail: (email: string) => void;
+  setResetOtp: (otp: string) => void;
+  setResetUserId: (id: string) => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-  currentUser: null,
-  isAuthenticated: false,
-  resetEmail: "",
-  setResetEmail: (email) => set({ resetEmail: email }),
-  login: (email, password) => {
-    // Demo credentials
-    if (email === "admin@wedding.com" && password === "admin123") {
-      set({
-        currentUser: {
-          id: "1",
-          name: "Super Admin",
-          email,
-          role: "super_admin",
-        },
-        isAuthenticated: true,
-      });
-      return true;
-    }
-    if (email === "user@wedding.com" && password === "user123") {
-      set({
-        currentUser: { id: "2", name: "Admin User", email, role: "admin" },
-        isAuthenticated: true,
-      });
-      return true;
-    }
-    return false;
-  },
-  logout: () => set({ currentUser: null, isAuthenticated: false }),
-}));
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      user: null,
+      token: null,
+      isAuthenticated: false,
+
+      resetEmail: "",
+      resetOtp: "",
+      resetUserId: "",
+
+      setAuth: (user, token) =>
+        set({
+          user,
+          token,
+          isAuthenticated: true,
+        }),
+
+      logout: () =>
+        set({
+          user: null,
+          token: null,
+          isAuthenticated: false,
+        }),
+
+      setResetEmail: (email) => set({ resetEmail: email }),
+      setResetOtp: (otp) => set({ resetOtp: otp }),
+      setResetUserId: (id) => set({ resetUserId: id }),
+    }),
+    {
+      name: "auth-storage",
+    },
+  ),
+);

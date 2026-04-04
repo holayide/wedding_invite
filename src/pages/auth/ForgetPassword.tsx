@@ -1,12 +1,12 @@
+import { useForgotPassword } from "@/hooks/services/auth";
 import { useNavigate, Link } from "react-router-dom";
-import { ArrowLeft, Heart } from "lucide-react";
-import { useState } from "react";
+import { ArrowLeft, Heart, Loader2 } from "lucide-react";
+import { z } from "zod";
 
 import { useAuthStore } from "@/store/authStore";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
 import {
   Card,
   CardContent,
@@ -14,17 +14,39 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const forgotPasswordSchema = z.object({
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Please enter a valid email address"),
+});
+export type ForgotPasswordValues = z.infer<typeof forgotPasswordSchema>;
 
 export default function ForgotPassword() {
-  const [email, setEmail] = useState("");
   const navigate = useNavigate();
   const { setResetEmail } = useAuthStore();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setResetEmail(email);
-    toast.success("OTP sent to your email");
-    navigate("/otp-verification");
+  const { mutate: sendOtp, isPending } = useForgotPassword();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ForgotPasswordValues>({
+    resolver: zodResolver(forgotPasswordSchema),
+    defaultValues: { email: "" },
+  });
+
+  const onSubmit = (values: ForgotPasswordValues) => {
+    sendOtp(values.email, {
+      onSuccess: () => {
+        setResetEmail(values.email);
+        navigate("/otp-verification");
+      },
+    });
   };
 
   return (
@@ -41,26 +63,41 @@ export default function ForgotPassword() {
             Enter your email to receive a verification code
           </CardDescription>
         </CardHeader>
+
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
                 placeholder="your@email.com"
-                value={email}
-                className="h-10"
-                onChange={(e) => setEmail(e.target.value)}
-                required
+                className={`h-10 ${errors.email ? "border-destructive" : ""}`}
+                {...register("email")}
+                disabled={isPending}
               />
+              {errors.email && (
+                <p className="text-xs text-destructive">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
+
             <Button
               type="submit"
-              className="w-full h-12 cursor-pointer hover:opacity-70"
+              disabled={isPending}
+              className="w-full h-12 cursor-pointer hover:opacity-70 transition-all"
             >
-              Send OTP
+              {isPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                "Send OTP"
+              )}
             </Button>
+
             <div className="text-center">
               <Link
                 to="/login"

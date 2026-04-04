@@ -1,13 +1,15 @@
 import { useNavigate, Link } from "react-router-dom";
-import { Heart } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Eye, EyeOff, Heart, Loader2 } from "lucide-react";
 import { useState } from "react";
+import { z } from "zod";
 
 import bgImage from "@/assets/wedding_table.jpg";
-import { useAuthStore } from "@/store/authStore";
+import { useLogin } from "@/hooks/services/auth";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
 import {
   Card,
   CardContent,
@@ -16,20 +18,31 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-  const { login } = useAuthStore();
+const loginSchema = z.object({
+  email: z.string().email("Invalid email"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+type LoginFormValues = z.infer<typeof loginSchema>;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (login(email, password)) {
-      toast.success("Welcome back!");
-      navigate("/dashboard");
-    } else {
-      toast.error("Invalid credentials. Try admin@wedding.com / admin123");
-    }
+export default function Login() {
+  const navigate = useNavigate();
+  const { mutate, isPending } = useLogin();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = (data: LoginFormValues) => {
+    mutate(data, {
+      onSuccess: () => {
+        navigate("/dashboard");
+      },
+    });
   };
 
   return (
@@ -53,39 +66,58 @@ export default function Login() {
             />
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
                 placeholder="your@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register("email")}
                 className="h-10"
-                required
               />
+              {errors.email && (
+                <p className="text-sm text-red-500">{errors.email.message}</p>
+              )}
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="h-10"
-                required
-              />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  {...register("password")}
+                  className="h-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground cursor-pointer"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
+              </div>
+              {errors.password && (
+                <p className="text-sm text-red-500">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
             <>
               <Button
                 type="submit"
                 className="w-full h-12 cursor-pointer hover:opacity-70"
+                disabled={isPending}
               >
-                Sign In to Your Event
+                {isPending && <Loader2 className="h-4 w-4 animate-spin" />}
+                {isPending ? "Signing in..." : "Sign In to Your Event"}
               </Button>
               <div className="text-center pt-3">
                 <p className="text-sm">

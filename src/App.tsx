@@ -1,17 +1,17 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { TooltipProvider } from "@/components/ui/tooltip";
-
-import InviteManagement from "./pages/InviteManagement";
-import OtpVerification from "./pages/OtpVerification";
-import UserManagement from "./pages/UserManagement";
-import ForgotPassword from "./pages/ForgetPassword";
-import ResetPassword from "./pages/ResetPassword";
-import Dashboard from "./pages/Dashboard";
-import NotFound from "./pages/NotFound";
-import Login from "./pages/Login";
-import Index from "./pages/Index";
 import { Toaster } from "sonner";
+
+import InviteManagement from "./pages/app/InviteManagement";
+import OtpVerification from "./pages/auth/OtpVerification";
+import UserManagement from "./pages/app/UserManagement";
+import ForgotPassword from "./pages/auth/ForgetPassword";
+import ResetPassword from "./pages/auth/ResetPassword";
+import Dashboard from "./pages/app/Dashboard";
+import NotFound from "./pages/app/NotFound";
+import Login from "./pages/auth/Login";
+import Index from "./pages/app/Index";
 
 const queryClient = new QueryClient();
 

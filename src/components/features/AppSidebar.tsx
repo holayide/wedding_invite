@@ -24,9 +24,8 @@ const navItems = [
 export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
-  //   const location = useLocation();
   const navigate = useNavigate();
-  const { logout, currentUser } = useAuthStore();
+  const { logout, user } = useAuthStore();
 
   const handleLogout = () => {
     logout();
@@ -44,15 +43,13 @@ export function AppSidebar() {
               </div>
               {!collapsed && "Wedding Admin"}
             </SidebarGroupLabel>
+
             <SidebarGroupContent>
               <SidebarMenu
                 className={`flex flex-col gap-5 ${collapsed ? "pt-0" : "pt-5 "}`}
               >
                 {navItems.map((item) => {
-                  if (
-                    item.url === "/users" &&
-                    currentUser?.role !== "super_admin"
-                  )
+                  if (item.url === "/users" && user?.role !== "super_admin")
                     return null;
                   return (
                     <SidebarMenuItem key={item.title}>
@@ -60,7 +57,7 @@ export function AppSidebar() {
                         <NavLink
                           to={item.url}
                           className="hover:bg-accent/50"
-                          activeClassName="bg-accent text-primary font-medium"
+                          activeClassName="bg-accent text-primary font-medium hover:bg-accent hover:text-primary"
                         >
                           <item.icon className="mr-2 h-4 w-4" />
                           {!collapsed && <span>{item.title}</span>}
@@ -73,6 +70,7 @@ export function AppSidebar() {
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
+
         <SidebarFooter className="mt-0">
           <SidebarMenu>
             <SidebarMenuItem>

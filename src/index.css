@@ -1,12 +1,12 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Manrope:wght@200..800&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
 
 @custom-variant dark (&:is(.dark *));
-
-/* @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"); */
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Manrope:wght@200..800&display=swap");
 
 :root {
   --background: hsl(40 33% 97%);
@@ -43,9 +43,6 @@
   --blush: hsl(350 30% 90%);
   --cream: hsl(40 33% 97%);
   --cream-dark: hsl(40 20% 93%);
-
-  /* --font-display: "Playfair Display", serif; */
-  /* --font-body: "Lato", sans-serif; */
 }
 
 .dark {
@@ -116,8 +113,8 @@
   --color-cream: var(--cream);
   --color-cream-dark: var(--cream-dark);
 
-  /* --font-display: "Playfair Display", serif; */
-  --font-display: "Manrope", sans-serif;
+  --font-display: "Playfair Display", serif;
+  /* --font-display: "Manrope", sans-serif; */
   --font-body: "Lato", sans-serif;
 }
 
