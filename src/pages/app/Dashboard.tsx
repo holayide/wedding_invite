@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DashboardLayout } from "@/components/features/DashboardLayout";
 import { useAnalytics } from "@/hooks/services/analytics";
 import { useInvites } from "@/hooks/services/invite";
+import { useUsers } from "@/hooks/services/users";
 import { useAuthStore } from "@/store/authStore";
 import { formatDateToDMY } from "@/lib/helper";
 
@@ -11,7 +12,8 @@ export default function Dashboard() {
   const { user } = useAuthStore();
 
   const { data: analytics, isLoading: isAnalysing } = useAnalytics();
-  const { data: invitees = [], isLoading } = useInvites();
+  const { data: invitees = [], isLoading: isInviting } = useInvites();
+  const { data: admins = [], isLoading } = useUsers();
 
   const stats = [
     {
@@ -19,19 +21,21 @@ export default function Dashboard() {
       value: analytics?.users ?? 0,
       icon: Users,
       description: "Admin accounts",
+      loading: isAnalysing,
     },
     {
       title: "Total Invites",
       value: analytics?.invites ?? 0,
       icon: Mail,
       description: "Wedding guests",
+      loading: isAnalysing,
     },
     {
       title: "Admins",
-      // value: users.filter((u) => u.role === "admin").length,
-      value: 0,
+      value: admins.length ?? 0,
       icon: Heart,
       description: "Limited access",
+      loading: isLoading,
     },
   ];
 
@@ -59,11 +63,13 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-display font-bold">
-                  {isAnalysing ? (
-                    <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
-                  ) : (
-                    stat.value
-                  )}
+                  <div className="text-3xl font-display font-bold">
+                    {stat.loading ? (
+                      <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                    ) : (
+                      stat.value
+                    )}
+                  </div>
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">
                   {stat.description}
@@ -80,7 +86,7 @@ export default function Dashboard() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {isLoading ? (
+            {isInviting ? (
               <div className="text-base text-center py-8">
                 Loading invitees...
               </div>
