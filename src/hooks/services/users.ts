@@ -101,7 +101,7 @@ export const useDeleteAdmin = () => {
     },
 
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["invites"] });
+      queryClient.invalidateQueries({ queryKey: ["users"] });
       toast.success("Admin removed successfully");
     },
 
