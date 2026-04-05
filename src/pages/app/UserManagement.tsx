@@ -84,10 +84,10 @@ export default function UserManagement() {
           admins={paginatedAdmins}
           isLoading={isLoading}
           actionId={actionId}
-          isDeleting={isDeleting}
           isBlocking={isBlocking}
           onDelete={handleDelete}
           onToggleBlock={handleToggleBlock}
+          deletingId={isDeleting ? actionId : null}
         />
 
         {!isLoading && admins.length > itemsPerPage && (

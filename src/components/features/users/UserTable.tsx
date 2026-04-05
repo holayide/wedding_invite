@@ -19,17 +19,17 @@ interface UserTableProps {
   admins: User[];
   actionId: string | null;
   isLoading: boolean;
-  isDeleting: boolean;
   isBlocking: boolean;
-  onToggleBlock: (id: string) => void;
+  deletingId: string | null;
   onDelete: (id: string) => void;
+  onToggleBlock: (id: string) => void;
 }
 
 export default function UserTable({
   admins,
   isLoading,
   actionId,
-  isDeleting,
+  deletingId,
   isBlocking,
   onDelete,
   onToggleBlock,
@@ -65,46 +65,53 @@ export default function UserTable({
                 </TableCell>
               </TableRow>
             ) : (
-              admins.map((user) => (
-                <TableRow key={user.id}>
-                  <TableCell className="p-3 font-medium">{user.name}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>
-                    <Badge
-                      variant={
-                        user.role === "super_admin" ? "default" : "secondary"
-                      }
-                    >
-                      {user.role === "super_admin" ? "Super Admin" : "Admin"}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="pl-3 flex justify-end items-center gap-4 text-right">
-                    {/* SWITCH */}
-                    {isBlocking && actionId === user.id ? (
-                      <Loader2 className="h-4 w-4 animate-spin text-primary" />
-                    ) : (
-                      <Switch
-                        checked={!user.is_blocked}
-                        onCheckedChange={() => onToggleBlock(user.id)}
-                        disabled={isBlocking}
-                        className="cursor-pointer"
+              admins.map((user) => {
+                const rowIsDeleting = deletingId === user.id;
+                const rowIsBlocking = isBlocking && actionId === user.id;
+
+                return (
+                  <TableRow key={user.id}>
+                    <TableCell className="p-3 font-medium">
+                      {user.name}
+                    </TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell>
+                      <Badge
+                        variant={
+                          user.role === "super_admin" ? "default" : "secondary"
+                        }
+                      >
+                        {user.role === "super_admin" ? "Super Admin" : "Admin"}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="pl-3 flex justify-end items-center gap-4 text-right">
+                      {/* SWITCH */}
+                      {rowIsBlocking ? (
+                        <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                      ) : (
+                        <Switch
+                          checked={!user.is_blocked}
+                          onCheckedChange={() => onToggleBlock(user.id)}
+                          disabled={isBlocking}
+                          className="cursor-pointer"
+                        />
+                      )}
+
+                      {/* EDIT */}
+                      <EditUser user={user} />
+
+                      {/* DELETE */}
+                      <Delete
+                        user={user}
+                        type="Admin"
+                        isDeleting={rowIsDeleting}
+                        actionId={actionId}
+                        onDelete={onDelete}
                       />
-                    )}
-
-                    {/* EDIT */}
-                    <EditUser user={user} />
-
-                    {/* DELETE */}
-                    <Delete
-                      user={user}
-                      type="Admin"
-                      isDeleting={isDeleting}
-                      actionId={actionId}
-                      onDelete={onDelete}
-                    />
-                  </TableCell>
-                </TableRow>
-              ))
+                    </TableCell>
+                  </TableRow>
+                );
+              })
             )}
           </TableBody>
         </Table>
