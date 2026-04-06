@@ -54,7 +54,7 @@ export default function UserManagement() {
   return (
     <DashboardLayout>
       <div className="space-y-6 animate-fade-in">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between">
           <div>
             <h1 className="text-xl sm:text-3xl font-display font-semibold">
               User Management

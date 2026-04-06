@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, Mail, LogOut, Heart } from "lucide-react";
+import { LayoutDashboard, Users, Mail, LogOut, Heart, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/authStore";
 import { NavLink } from "./NavLink";
@@ -27,6 +27,8 @@ export function AppSidebar() {
   const navigate = useNavigate();
   const { logout, user } = useAuthStore();
 
+  const { setOpenMobile, setOpen, isMobile } = useSidebar();
+
   const handleLogout = () => {
     logout();
     navigate("/login");
@@ -34,14 +36,32 @@ export function AppSidebar() {
 
   return (
     <Sidebar collapsible="icon">
-      <div className="flex flex-col bg-background sm:bg-transparent min-h-screen">
+      <div className="flex flex-col bg-background md:bg-transparent min-h-screen">
         <SidebarContent>
           <SidebarGroup>
-            <SidebarGroupLabel className="font-display text-lg tracking-wide py-8 border-b border-primary/10">
-              <div className="mr-2 size-10 rounded-full bg-primary flex items-center justify-center text-white">
-                <Heart fill="white" className=" h-4 w-4 text-white" />
+            <SidebarGroupLabel className="py-8 border-b border-primary/10">
+              <div className="flex items-center justify-between w-full">
+                <div className="flex items-center gap-3 font-display text-lg tracking-wide">
+                  <div className="size-10 rounded-full bg-primary flex items-center justify-center text-white">
+                    <Heart fill="white" className="h-4 w-4 text-white" />
+                  </div>
+
+                  {!collapsed && <span>Wedding Admin</span>}
+                </div>
+
+                <button
+                  onClick={() => {
+                    if (isMobile) {
+                      setOpenMobile(false);
+                    } else {
+                      setOpen(false);
+                    }
+                  }}
+                  className="block md:hidden p-2 rounded-md hover:bg-muted cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
               </div>
-              {!collapsed && "Wedding Admin"}
             </SidebarGroupLabel>
 
             <SidebarGroupContent>

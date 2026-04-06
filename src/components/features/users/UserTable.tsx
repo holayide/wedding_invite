@@ -39,7 +39,7 @@ export default function UserTable({
   onToggleBlock,
 }: UserTableProps) {
   return (
-    <Card className="border-primary/10 p-0 select-none">
+    <Card className="border-primary/10 p-0 select-none overflow-hidden">
       <CardContent className="p-0">
         <Table>
           <TableHeader>
@@ -87,7 +87,7 @@ export default function UserTable({
 
                 return (
                   <TableRow key={user.id}>
-                    <TableCell className="p-3 font-medium">
+                    <TableCell className="w-[25%] p-3 font-medium">
                       {user.name}
                     </TableCell>
                     <TableCell>{user.email}</TableCell>
@@ -107,30 +107,32 @@ export default function UserTable({
                         <span className="text-green-500">Active</span>
                       )}
                     </TableCell>
-                    <TableCell className="pl-3 flex justify-end items-center gap-4 text-right">
-                      {/* SWITCH */}
-                      {rowIsBlocking ? (
-                        <Loader2 className="h-4 w-4 animate-spin text-primary" />
-                      ) : (
-                        <Switch
-                          checked={!user.is_blocked}
-                          onCheckedChange={() => onToggleBlock(user.id)}
-                          disabled={isBlocking}
-                          className="cursor-pointer"
+                    <TableCell className="pr-3 text-right">
+                      <div className="flex justify-end items-center gap-1 sm:gap-4">
+                        {/* SWITCH */}
+                        {rowIsBlocking ? (
+                          <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                        ) : (
+                          <Switch
+                            checked={!user.is_blocked}
+                            onCheckedChange={() => onToggleBlock(user.id)}
+                            disabled={isBlocking}
+                            className="cursor-pointer"
+                          />
+                        )}
+
+                        {/* EDIT */}
+                        <EditUser user={user} />
+
+                        {/* DELETE */}
+                        <Delete
+                          user={user}
+                          type="Admin"
+                          isDeleting={rowIsDeleting}
+                          actionId={actionId}
+                          onDelete={onDelete}
                         />
-                      )}
-
-                      {/* EDIT */}
-                      <EditUser user={user} />
-
-                      {/* DELETE */}
-                      <Delete
-                        user={user}
-                        type="Admin"
-                        isDeleting={rowIsDeleting}
-                        actionId={actionId}
-                        onDelete={onDelete}
-                      />
+                      </div>
                     </TableCell>
                   </TableRow>
                 );
