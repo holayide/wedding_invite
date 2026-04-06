@@ -8,23 +8,24 @@ export async function generateInvitationPdf(invitee: Invitee) {
 
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
-    const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+    // const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
     const helvetica = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
     const pages = pdfDoc.getPages();
     const firstPage = pages[0];
-    const { width, height } = firstPage.getSize();
+    // height
+    const { width } = firstPage.getSize();
 
-    firstPage.drawText(invitee.name, {
-      x: width / 2 - helveticaBold.widthOfTextAtSize(invitee.name, 24) / 2,
-      y: height / 2,
-      size: 24,
-      font: helveticaBold,
-      color: rgb(0.77, 0.64, 0.39),
-    });
+    // firstPage.drawText(invitee.name, {
+    //   x: width / 2 - helveticaBold.widthOfTextAtSize(invitee.name, 24) / 2,
+    //   y: height / 2,
+    //   size: 24,
+    //   font: helveticaBold,
+    //   color: rgb(0.77, 0.64, 0.39),
+    // });
 
     firstPage.drawText(`Code: ${invitee.code}`, {
-      x: width - 50,
+      x: width - 80,
       y: 20,
       size: 8,
       font: helvetica,

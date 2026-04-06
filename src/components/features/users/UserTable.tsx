@@ -19,6 +19,8 @@ interface UserTableProps {
   admins: User[];
   actionId: string | null;
   isLoading: boolean;
+  isError: boolean;
+  error: unknown;
   isBlocking: boolean;
   deletingId: string | null;
   onDelete: (id: string) => void;
@@ -28,6 +30,8 @@ interface UserTableProps {
 export default function UserTable({
   admins,
   isLoading,
+  isError,
+  error,
   actionId,
   deletingId,
   isBlocking,
@@ -43,6 +47,7 @@ export default function UserTable({
               <TableHead className="pl-3 font-semibold">Name</TableHead>
               <TableHead className="font-semibold">Email</TableHead>
               <TableHead className="font-semibold">Role</TableHead>
+              <TableHead className="font-semibold">Active</TableHead>
               <TableHead className="pr-3 text-right font-semibold">
                 Actions
               </TableHead>
@@ -51,14 +56,25 @@ export default function UserTable({
           <TableBody>
             {isLoading ? (
               <TableRow>
-                <TableCell colSpan={4} className="text-center py-8">
+                <TableCell colSpan={5} className="text-center py-8">
                   Loading invitees...
+                </TableCell>
+              </TableRow>
+            ) : isError ? (
+              <TableRow>
+                <TableCell
+                  colSpan={5}
+                  className="text-center py-8 text-red-500"
+                >
+                  {error instanceof Error
+                    ? error.message
+                    : "Failed to load users"}
                 </TableCell>
               </TableRow>
             ) : admins.length === 0 ? (
               <TableRow>
                 <TableCell
-                  colSpan={4}
+                  colSpan={5}
                   className="text-center py-8 text-muted-foreground"
                 >
                   No admin found
@@ -83,6 +99,13 @@ export default function UserTable({
                       >
                         {user.role === "super_admin" ? "Super Admin" : "Admin"}
                       </Badge>
+                    </TableCell>
+                    <TableCell>
+                      {user.is_blocked ? (
+                        <span className="text-red-500">Suspended</span>
+                      ) : (
+                        <span className="text-green-500">Active</span>
+                      )}
                     </TableCell>
                     <TableCell className="pl-3 flex justify-end items-center gap-4 text-right">
                       {/* SWITCH */}

@@ -12,7 +12,12 @@ export default function Dashboard() {
   const { user } = useAuthStore();
 
   const { data: analytics, isLoading: isAnalysing } = useAnalytics();
-  const { data: invitees = [], isLoading: isInviting } = useInvites();
+  const {
+    data: invitees = [],
+    isLoading: isInviting,
+    isError,
+    error,
+  } = useInvites();
   const { data: admins = [], isLoading } = useUsers();
 
   const stats = [
@@ -89,6 +94,12 @@ export default function Dashboard() {
             {isInviting ? (
               <div className="text-base text-center py-8">
                 Loading invitees...
+              </div>
+            ) : isError ? (
+              <div className="text-base text-center py-8 text-red-500">
+                {error instanceof Error
+                  ? error.message
+                  : "Failed to load users"}
               </div>
             ) : invitees.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground">

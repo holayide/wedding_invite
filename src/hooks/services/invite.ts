@@ -18,6 +18,7 @@ export const useInvites = (search?: string, userId?: string) => {
 
       return res?.data?.data || [];
     },
+    retry: 1,
   });
 };
 

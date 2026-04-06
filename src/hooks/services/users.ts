@@ -17,6 +17,7 @@ export const useUsers = (search?: string, userId?: string) => {
 
       return res?.data?.data || [];
     },
+    retry: 1,
   });
 };
 

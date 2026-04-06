@@ -17,6 +17,8 @@ import {
 interface InviteTableProps {
   invitees: Invitee[];
   isLoading: boolean;
+  isError: boolean;
+  error: unknown;
   deletingId: string | null;
   onDelete: (id: string) => void;
   onDownload?: (invitee: Invitee) => void;
@@ -25,6 +27,8 @@ interface InviteTableProps {
 export default function InviteTable({
   invitees,
   isLoading,
+  isError,
+  error,
   deletingId,
   onDelete,
   onDownload,
@@ -36,6 +40,7 @@ export default function InviteTable({
           <TableHeader>
             <TableRow className="hover:bg-transparent">
               <TableHead className="pl-3 font-semibold">Name</TableHead>
+              <TableHead className="font-semibold">Invited by</TableHead>
               <TableHead className="font-semibold">Code</TableHead>
               <TableHead className="font-semibold">Date</TableHead>
               <TableHead className="pr-3 text-right font-semibold">
@@ -48,6 +53,17 @@ export default function InviteTable({
               <TableRow>
                 <TableCell colSpan={4} className="text-center py-8">
                   Loading invitees...
+                </TableCell>
+              </TableRow>
+            ) : isError ? (
+              <TableRow>
+                <TableCell
+                  colSpan={5}
+                  className="text-center py-8 text-red-500"
+                >
+                  {error instanceof Error
+                    ? error.message
+                    : "Failed to load users"}
                 </TableCell>
               </TableRow>
             ) : invitees.length === 0 ? (
@@ -67,6 +83,9 @@ export default function InviteTable({
                   <TableRow key={invitee.id}>
                     <TableCell className="p-3 font-medium">
                       {invitee.name}
+                    </TableCell>
+                    <TableCell className="font-mono text-sm">
+                      {invitee.user.name}
                     </TableCell>
                     <TableCell className="font-mono text-sm">
                       {invitee.code}

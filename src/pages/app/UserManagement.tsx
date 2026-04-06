@@ -24,7 +24,7 @@ export default function UserManagement() {
   const { user, isAuthenticated } = useAuthStore();
 
   // Data & Mutations
-  const { data: admins = [], isLoading } = useUsers(search);
+  const { data: admins = [], isLoading, isError, error } = useUsers(search);
   const { mutate: deleteAdmin, isPending: isDeleting } = useDeleteAdmin();
   const { mutate: blockAdmin, isPending: isBlocking } = useBlockAdmin();
 
@@ -38,7 +38,7 @@ export default function UserManagement() {
     };
   }, [admins, currentPage]);
 
-  if (!isAuthenticated) <Navigate to="/login" replace />;
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
   if (user?.role !== "super_admin") return <Navigate to="/dashboard" replace />;
 
   const handleDelete = (id: string) => {
@@ -83,6 +83,8 @@ export default function UserManagement() {
         <UserTable
           admins={paginatedAdmins}
           isLoading={isLoading}
+          isError={isError}
+          error={error}
           actionId={actionId}
           isBlocking={isBlocking}
           onDelete={handleDelete}
