@@ -9,7 +9,6 @@ export async function generateInvitationPdf(invitee: Invitee) {
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
     const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
-    const helvetica = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
     const pages = pdfDoc.getPages();
     const firstPage = pages[0];
@@ -35,11 +34,11 @@ export async function generateInvitationPdf(invitee: Invitee) {
     });
 
     // Invitee Code at top-left, after the cotton/brown drape design
-    firstPage.drawText(`Code: ${invitee.code}`, {
+    firstPage.drawText(String(invitee.code), {
       x: 105,
       y: 1090,
-      size: 9,
-      font: helvetica,
+      size: 14,
+      font: helveticaBold,
       color: rgb(0.44, 0.43, 0.41), // Charcoal matching invitation text
     });
 
