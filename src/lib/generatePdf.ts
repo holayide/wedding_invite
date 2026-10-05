@@ -3,33 +3,44 @@ import type { Invitee } from "@/types";
 
 export async function generateInvitationPdf(invitee: Invitee) {
   try {
-    const url = "/Nanya&Jindu-edding.pdf";
+    const url = "/Promise_and_prudence_2026.pdf";
     const existingPdfBytes = await fetch(url).then((res) => res.arrayBuffer());
 
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
-    // const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+    const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
     const helvetica = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
     const pages = pdfDoc.getPages();
     const firstPage = pages[0];
-    // height
     const { width } = firstPage.getSize();
 
-    // firstPage.drawText(invitee.name, {
-    //   x: width / 2 - helveticaBold.widthOfTextAtSize(invitee.name, 24) / 2,
-    //   y: height / 2,
-    //   size: 24,
-    //   font: helveticaBold,
-    //   color: rgb(0.77, 0.64, 0.39),
-    // });
+    // Invitee Name
+    let nameSize = 25;
+    const maxNameWidth = width - 160;
+    while (
+      helveticaBold.widthOfTextAtSize(invitee.name, nameSize) > maxNameWidth &&
+      nameSize > 14
+    ) {
+      nameSize -= 1;
+    }
 
+    const nameWidth = helveticaBold.widthOfTextAtSize(invitee.name, nameSize);
+    firstPage.drawText(invitee.name, {
+      x: (width - nameWidth) / 2,
+      y: 855,
+      size: nameSize,
+      font: helveticaBold,
+      color: rgb(0.46, 0.2, 0.23), // Burgundy matching invitation accent
+    });
+
+    // Invitee Code at top-left, after the cotton/brown drape design
     firstPage.drawText(`Code: ${invitee.code}`, {
-      x: width - 80,
-      y: 20,
-      size: 8,
+      x: 105,
+      y: 1090,
+      size: 9,
       font: helvetica,
-      color: rgb(0.5, 0.5, 0.5),
+      color: rgb(0.44, 0.43, 0.41), // Charcoal matching invitation text
     });
 
     const pdfBytes = await pdfDoc.save();
@@ -39,11 +50,8 @@ export async function generateInvitationPdf(invitee: Invitee) {
     });
     const link = document.createElement("a");
 
-    // Create a clean filename: "john-doe-invitation-code.pdf"
-    const safeName = invitee.name.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
-
     link.href = URL.createObjectURL(blob);
-    link.download = `${safeName}-invitation-${invitee.code}.pdf`;
+    link.download = "Promise_and_prudence_2026.pdf";
     link.click();
 
     URL.revokeObjectURL(link.href);
